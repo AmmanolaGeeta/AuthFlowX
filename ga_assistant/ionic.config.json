@@ -1,0 +1,7 @@
+{
+  "name": "ga_assistant",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
