@@ -1,0 +1,166 @@
+<ion-content class="ion-align-items-center ion-justify-content-center" [fullscreen]="true">
+  <ion-grid class="content-box">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="ion-margin">
+
+          <ion-row class="ion-text-center ion-justify-content-center">
+            <img src="assets/Logo.png" alt="Logo" class="logoImageCss " />
+          </ion-row>
+          <!-- <ion-label>{{ isLogin() ? 'Login' : 'Sign Up' }} </ion-label> -->
+
+
+          <!-- <ion-item lines="none">
+            @if(isMode()) {
+            <ion-toggle class="ion-text-right" [checked]="isMode" (ionChange)="changeMode($event)">Dark
+              Mode</ion-toggle>
+            } @else {
+            <ion-toggle class="ion-text-right" [checked]="!isMode" (ionChange)="changeMode($event)">Light
+              Mode</ion-toggle>
+            }
+          </ion-item> -->
+
+
+          <!-- login -->
+
+          @if(isLogin()) {
+          <ion-card-header>
+            <ion-card-title>Login</ion-card-title>
+          </ion-card-header>
+          <form [formGroup]="loginForm" (ngSubmit)="submit()">
+            <ion-grid class="ion-text-left">
+              <ion-row>
+                <ion-input label="Enter Username" formControlName="email" labelPlacement="floating"
+                  placeholder=""></ion-input>
+              </ion-row>
+              @if (f.email.touched && f.email.invalid) {
+              <ion-note color="danger">
+                @if (f.email.errors?.['required']) {
+                <small>Email is required</small>
+                }
+                @if (f.email.errors?.['email']) {
+                <small>Invalid email</small>
+                }
+              </ion-note>
+              }
+              <ion-row>
+                <ion-input type="Password" formControlName="password" label="Enter password"
+                  labelPlacement="floating"></ion-input>
+              </ion-row>
+              @if (f.password.touched && f.password.invalid) {
+              <ion-note color="danger">
+                @if (f.password.errors?.['required']) {
+                <small>Password is required</small>
+                }
+                @if (f.password.errors?.['password']) {
+                <small>Invalid password</small>
+                }
+              </ion-note>
+              }
+              <!-- <ion-note color="danger" *ngIf="f.password.touched && f.password.invalid">
+                <small>Password is required</small>
+              </ion-note> -->
+              <ion-button expand="full" shape="round" type="submit" [disabled]="loginForm.invalid || submitting"> {{
+                submitting ?
+                'Please wait...' : 'Login' }}</ion-button>
+            </ion-grid>
+          </form>
+
+
+          } @else {
+          <!-- signup -->
+          <ion-card-header>
+            <ion-card-title>Signup</ion-card-title>
+          </ion-card-header>
+          <form [formGroup]="signupForm" (ngSubmit)="signUpSubmit()">
+            <ion-grid class="ion-text-left">
+
+              <ion-row>
+                <ion-input label="Enter Username" formControlName="email" labelPlacement="floating"
+                  placeholder=""></ion-input>
+              </ion-row>
+              @if (f.email.touched && f.email.invalid) {
+              <ion-note color="danger">
+                @if (f.email.errors?.['required']) {
+                <small>Email is required</small>
+                }
+                @if (f.email.errors?.['email']) {
+                <small>Invalid email</small>
+                }
+              </ion-note>
+              }
+              <ion-row>
+                <ion-input type="Password" formControlName="password" label="Enter password"
+                  labelPlacement="floating"></ion-input>
+              </ion-row>
+              <!-- @if (f.password.touched && f.password.invalid) {
+              <ion-note color="danger">
+                @if (f.password.errors?.['required']) {
+                <small>Password is required</small>
+                }
+                @if (f.password.errors?.['password']) {
+                <small>Invalid password</small>
+                }
+              </ion-note>
+              }  -->
+              @if (f.password.errors?.['pattern']) {
+              <ion-note color="danger">
+                <small>Password must be 8+ chars, include uppercase, lowercase & number</small>
+              </ion-note>
+              }
+
+              <!-- @if (f.confirmPassword.touched && form.errors?.passwordMismatch) {
+      <ion-note color="danger">
+        <small>Passwords do not match</small>
+      </ion-note> 
+     } -->
+              <ion-row>
+                <ion-input type="Password" formControlName="confirmPassword" label="Confirm password"
+                  labelPlacement="floating"></ion-input>
+              </ion-row>
+              <!-- @if (f.errors?.['passwordMismatch']) { -->
+                @if (signupForm.errors?.['passwordMismatch'] && f.confirmPassword.touched) {
+
+              <ion-note color="danger">
+                <small>Passwords do not match</small>
+              </ion-note>
+              }
+              <!-- @if (f.confirmPassword.touched && f.confirmPassword.invalid) {
+              <ion-note color="danger">
+                @if (f.confirmPassword.errors?.['required']) {
+                <small>confirmPassword is required</small>
+                }
+                @if (f.confirmPassword.errors?.['confirmPassword']) {
+                <small>Invalid Password</small>
+                }
+                   @if (f.confirmPassword !== f.password) {
+                <small>Password do not match</small>
+                }
+              </ion-note>
+              } -->
+              <ion-button expand="full" shape="round" type="submit" [disabled]="signupForm.invalid || submitting">Sign
+                Up</ion-button>
+            </ion-grid>
+          </form>
+          }
+
+
+          <!-- login toggle -->
+
+          <ion-item lines="none" class="toggleCss">
+            @if(isLogin()) {
+            <ion-toggle class="ion-text-right" [checked]="isLogin" (ionChange)="login($event)">Don't have an
+              Account,<span class="toggleTxt"> Signup now</span>
+
+            </ion-toggle>
+            } @else {
+            <ion-toggle class="ion-text-right" [checked]="!isLogin" (ionChange)="login($event)">
+              Already have an Account, <span class="toggleTxt"> Login now</span>
+            </ion-toggle>
+            }
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
