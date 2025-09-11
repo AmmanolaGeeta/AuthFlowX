@@ -25,41 +25,40 @@
 
           @if(isLogin()) {
           <ion-card-header>
-            <ion-card-title>Login</ion-card-title>
+            <ion-card-title>Login </ion-card-title>
           </ion-card-header>
           <form [formGroup]="loginForm" (ngSubmit)="submit()">
             <ion-grid class="ion-text-left">
-              <ion-row>
+              <ion-item>
                 <ion-input label="Enter Username" formControlName="email" labelPlacement="floating"
                   placeholder=""></ion-input>
-              </ion-row>
-              @if (f.email.touched && f.email.invalid) {
+              </ion-item>
+              @if (loginCon.email.touched && loginCon.email.invalid) {
               <ion-note color="danger">
-                @if (f.email.errors?.['required']) {
+                @if (loginCon.email.errors?.['required']) {
                 <small>Email is required</small>
                 }
-                @if (f.email.errors?.['email']) {
+                @if (loginCon.email.errors?.['email']) {
                 <small>Invalid email</small>
                 }
               </ion-note>
               }
-              <ion-row>
-                <ion-input type="Password" formControlName="password" label="Enter password"
+              <ion-item>
+                <ion-input [type]="passwordType" formControlName="password" label="Enter password"
                   labelPlacement="floating"></ion-input>
-              </ion-row>
-              @if (f.password.touched && f.password.invalid) {
+                <ion-icon class="iconCss" name="{{ showPassword() ? 'eye-off' : 'eye' }}" slot="end"
+                  (click)="toggleShowPassword('login')"></ion-icon>
+              </ion-item>
+              @if (loginCon.password.touched && loginCon.password.invalid) {
               <ion-note color="danger">
-                @if (f.password.errors?.['required']) {
+                @if (loginCon.password.errors?.['required']) {
                 <small>Password is required</small>
                 }
-                @if (f.password.errors?.['password']) {
+                @if (loginCon.password.errors?.['password']) {
                 <small>Invalid password</small>
                 }
               </ion-note>
               }
-              <!-- <ion-note color="danger" *ngIf="f.password.touched && f.password.invalid">
-                <small>Password is required</small>
-              </ion-note> -->
               <ion-button expand="full" shape="round" type="submit" [disabled]="loginForm.invalid || submitting"> {{
                 submitting ?
                 'Please wait...' : 'Login' }}</ion-button>
@@ -75,75 +74,69 @@
           <form [formGroup]="signupForm" (ngSubmit)="signUpSubmit()">
             <ion-grid class="ion-text-left">
 
-              <ion-row>
-                <ion-input label="Enter Username" formControlName="email" labelPlacement="floating"
+              <ion-item>
+                <ion-input label="Enter email ID" formControlName="email" labelPlacement="floating"
                   placeholder=""></ion-input>
-              </ion-row>
-              @if (f.email.touched && f.email.invalid) {
+              </ion-item>
+              @if (SignupCon.email.touched && SignupCon.email.invalid) {
               <ion-note color="danger">
-                @if (f.email.errors?.['required']) {
+                @if (SignupCon.email.errors?.['required']) {
                 <small>Email is required</small>
                 }
-                @if (f.email.errors?.['email']) {
+                @if (SignupCon.email.errors?.['email']) {
                 <small>Invalid email</small>
                 }
               </ion-note>
               }
-              <ion-row>
-                <ion-input type="Password" formControlName="password" label="Enter password"
-                  labelPlacement="floating"></ion-input>
-              </ion-row>
-              <!-- @if (f.password.touched && f.password.invalid) {
+              <ion-item>
+                <ion-input [type]="passwordSignupType" formControlName="password" label="Enter password"
+                  labelPlacement="floating">
+                </ion-input>
+                <ion-icon class="iconCss"
+                    name="{{ showSignupPassword() ? 'eye-off' : 'eye' }}" slot="end"
+                    (click)="toggleShowPassword('signup')"></ion-icon>
+              </ion-item>
+              @if (SignupCon.password.touched && SignupCon.password.invalid) {
               <ion-note color="danger">
-                @if (f.password.errors?.['required']) {
+                @if (SignupCon.password.errors?.['required']) {
                 <small>Password is required</small>
                 }
-                @if (f.password.errors?.['password']) {
-                <small>Invalid password</small>
+
+                @if (SignupCon.password.errors?.['pattern']) {
+                <small>Password must be 8+ chars, include uppercase, lowercase & number</small>
                 }
               </ion-note>
-              }  -->
-              @if (f.password.errors?.['pattern']) {
-              <ion-note color="danger">
-                <small>Password must be 8+ chars, include uppercase, lowercase & number</small>
-              </ion-note>
               }
 
-              <!-- @if (f.confirmPassword.touched && form.errors?.passwordMismatch) {
-      <ion-note color="danger">
-        <small>Passwords do not match</small>
-      </ion-note> 
-     } -->
-              <ion-row>
-                <ion-input type="Password" formControlName="confirmPassword" label="Confirm password"
-                  labelPlacement="floating"></ion-input>
-              </ion-row>
-              <!-- @if (f.errors?.['passwordMismatch']) { -->
-                @if (signupForm.errors?.['passwordMismatch'] && f.confirmPassword.touched) {
+              <ion-item>
+                <ion-input [type]="passwordSignupCType" formControlName="confirmPassword" label="Confirm password"
+                  labelPlacement="floating">
+                </ion-input>
+                <ion-icon class="iconCss"
+                    name="{{ showSignupCPassword() ? 'eye-off' : 'eye' }}" slot="end"
+                    (click)="toggleShowPassword('confirm')"></ion-icon>
+              </ion-item>
+
+              <!-- paas -->
+
+              @if (SignupCon.confirmPassword.touched && (SignupCon.confirmPassword.invalid ||
+              signupForm.errors?.['passwordMismatch'])) {
 
               <ion-note color="danger">
-                <small>Passwords do not match</small>
-              </ion-note>
-              }
-              <!-- @if (f.confirmPassword.touched && f.confirmPassword.invalid) {
-              <ion-note color="danger">
-                @if (f.confirmPassword.errors?.['required']) {
+                @if (SignupCon.confirmPassword.errors?.['required']) {
                 <small>confirmPassword is required</small>
                 }
-                @if (f.confirmPassword.errors?.['confirmPassword']) {
-                <small>Invalid Password</small>
-                }
-                   @if (f.confirmPassword !== f.password) {
-                <small>Password do not match</small>
+                @if (signupForm.errors?.['passwordMismatch'] && signupForm.controls.confirmPassword.touched) {
+                <small>Passwords do not match</small>
                 }
               </ion-note>
-              } -->
+              }
+              <!-- end -->
               <ion-button expand="full" shape="round" type="submit" [disabled]="signupForm.invalid || submitting">Sign
                 Up</ion-button>
             </ion-grid>
           </form>
           }
-
 
           <!-- login toggle -->
 

@@ -173,6 +173,14 @@ import { passwordMatchValidator, strongPasswordPattern } from './../../validator
 export class UserLoginPage implements OnInit {
   isMode = signal(false);
   isLogin = signal(true);
+  showPassword = signal(false);
+  passwordType: string = 'password';
+
+  showSignupPassword = signal(false);
+  passwordSignupType: string = 'password';
+
+  showSignupCPassword = signal(false);
+  passwordSignupCType: string = 'password';
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.pattern(strongPasswordPattern)]],
@@ -184,7 +192,7 @@ export class UserLoginPage implements OnInit {
     },
     { validators: passwordMatchValidator('password', 'confirmPassword') }
   );
-  showPassword = false;
+ 
   submitting = false;
 
   constructor(
@@ -248,8 +256,11 @@ export class UserLoginPage implements OnInit {
     // });
   }
 
-  get f() {
+  get loginCon() {
     return this.loginForm.controls;
+  }
+   get SignupCon() {
+    return this.signupForm.controls;
   }
 
   async signUpSubmit() {
@@ -286,7 +297,35 @@ export class UserLoginPage implements OnInit {
   get signupControls() {
     return this.loginForm.controls;
   }
+
+//   toggleLoginPassword(){
+//     console.log('Toggling login password visibility');
+//     this.showPassword.set(!this.showPassword());
+//       this.passwordType = this.showPassword() ? 'text' : 'password';
+//   }
+
+//     toggleSignupPassword(){
+//     this.showSignupPassword.set(!this.showSignupPassword());
+//       this.passwordSignupType = this.showSignupPassword() ? 'text' : 'password';
+//   }
+
+//     toggleSignupCPassword(){
+//     this.showSignupCPassword.set(!this.showSignupCPassword());
+//       this.passwordSignupCType = this.showSignupCPassword() ? 'text' : 'password';  
   
+// }
+
+toggleShowPassword(passwordField: 'login' | 'signup' | 'confirm') {
+  if (passwordField === 'login') {
+    this.showPassword.set(!this.showPassword());
+    this.passwordType = this.showPassword() ? 'text' : 'password';
+  } else if (passwordField === 'signup') {
+    this.showSignupPassword.set(!this.showSignupPassword());
+    this.passwordSignupType = this.showSignupPassword() ? 'text' : 'password';
+  } else if (passwordField === 'confirm') {
+    this.showSignupCPassword.set(!this.showSignupCPassword());
+    this.passwordSignupCType = this.showSignupCPassword() ? 'text' : 'password';
+  }
 }
   
-
+}
