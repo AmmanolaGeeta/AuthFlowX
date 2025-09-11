@@ -30,7 +30,7 @@
           <form [formGroup]="loginForm" (ngSubmit)="submit()">
             <ion-grid class="ion-text-left">
               <ion-item>
-                <ion-input label="Enter Username" formControlName="email" labelPlacement="floating"
+                <ion-input label="Enter username" formControlName="email" labelPlacement="floating"
                   placeholder=""></ion-input>
               </ion-item>
               @if (loginCon.email.touched && loginCon.email.invalid) {
@@ -59,9 +59,22 @@
                 }
               </ion-note>
               }
+
+
               <ion-button expand="full" shape="round" type="submit" [disabled]="loginForm.invalid || submitting"> {{
                 submitting ?
                 'Please wait...' : 'Login' }}</ion-button>
+       <ion-row>
+
+   
+              <ion-col size="6">
+                <ion-button expand="block" shape="round" (click)="googleLogin()">Login with Google</ion-button>
+
+              </ion-col>
+              <ion-col size="6">
+                <ion-button expand="block" shape="round" (click)="githubLogin()">Login with GitHub</ion-button>
+              </ion-col>
+                  </ion-row>
             </ion-grid>
           </form>
 
@@ -92,9 +105,8 @@
                 <ion-input [type]="passwordSignupType" formControlName="password" label="Enter password"
                   labelPlacement="floating">
                 </ion-input>
-                <ion-icon class="iconCss"
-                    name="{{ showSignupPassword() ? 'eye-off' : 'eye' }}" slot="end"
-                    (click)="toggleShowPassword('signup')"></ion-icon>
+                <ion-icon class="iconCss" name="{{ showSignupPassword() ? 'eye-off' : 'eye' }}" slot="end"
+                  (click)="toggleShowPassword('signup')"></ion-icon>
               </ion-item>
               @if (SignupCon.password.touched && SignupCon.password.invalid) {
               <ion-note color="danger">
@@ -112,9 +124,8 @@
                 <ion-input [type]="passwordSignupCType" formControlName="confirmPassword" label="Confirm password"
                   labelPlacement="floating">
                 </ion-input>
-                <ion-icon class="iconCss"
-                    name="{{ showSignupCPassword() ? 'eye-off' : 'eye' }}" slot="end"
-                    (click)="toggleShowPassword('confirm')"></ion-icon>
+                <ion-icon class="iconCss" name="{{ showSignupCPassword() ? 'eye-off' : 'eye' }}" slot="end"
+                  (click)="toggleShowPassword('confirm')"></ion-icon>
               </ion-item>
 
               <!-- paas -->

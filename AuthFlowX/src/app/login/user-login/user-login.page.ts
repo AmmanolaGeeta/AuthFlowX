@@ -328,4 +328,22 @@ toggleShowPassword(passwordField: 'login' | 'signup' | 'confirm') {
   }
 }
   
+
+googleLogin() {
+  this.auth.loginWithGoogle().then((result) => {
+    console.log('Google login successful:', result);
+    // this.navCtrl.navigateRoot('home');
+  }).catch((error) => {
+    console.error('Google login failed:', error);
+  });
+}
+
+githubLogin() {
+  this.auth.loginWithGithub().then((result) => {
+    console.log('GitHub login successful:', result);
+    // this.navCtrl.navigateRoot('/tabs/tab1');
+  }).catch((error) => {
+    console.error('GitHub login failed:', error);
+  });
+}
 }
