@@ -15,6 +15,10 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 //  Ionicons
 import { addIcons } from 'ionicons';
 import { eye, eyeOff } from 'ionicons/icons';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+// import { makeEnvironmentProviders } from '@angular/core';
+// import { IonicStorageModule } from '@ionic/storage-angular';
+// import { provideStorage } from '@ionic/storage-angular';
 
 addIcons({
   eye,'eye-off': eyeOff
@@ -24,10 +28,18 @@ bootstrapApplication(AppComponent, {
   providers: [
      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
-    provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideIonicAngular(),
     provideHttpClient(),
     provideRouter(routes),
+    // provideStorage(),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideFirestore(() => getFirestore())
   ]
 }).catch(err => console.error(err));
+// function provideStorage(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
+//   return makeEnvironmentProviders([
+//     importProvidersFrom(IonicStorageModule.forRoot())
+//   ]);
+// }

@@ -143,8 +143,11 @@
               </ion-note>
               }
               <!-- end -->
-              <ion-button expand="full" shape="round" type="submit" [disabled]="signupForm.invalid || submitting">Sign
-                Up</ion-button>
+                 <ion-button expand="full" shape="round" type="submit" [disabled]="signupForm.invalid || submitting"> {{
+                submittingSignup ?
+                'Please wait...' : 'Signup' }}</ion-button>
+              <!-- <ion-button expand="full" shape="round" type="submit" [disabled]="signupForm.invalid || submittingSignup">Sign
+                Up</ion-button> -->
             </ion-grid>
           </form>
           }

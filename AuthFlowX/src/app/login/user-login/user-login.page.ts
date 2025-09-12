@@ -194,13 +194,15 @@ export class UserLoginPage implements OnInit {
   );
  
   submitting = false;
+  submittingSignup = false;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
     private navCtrl: NavController,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    // private localStorage: Storage
   ) {}
 
   ngOnInit() {}
@@ -232,8 +234,11 @@ export class UserLoginPage implements OnInit {
     const { email, password } = this.loginForm.value;
     this.auth.login(email!, password!).subscribe({
     next: user => {
+       loading.dismiss();
       console.log('Logged in as:', user);
-      this.navCtrl.navigateRoot('/tabs/tab1');
+      // this.localStorage.setItem('userData', JSON.stringify(user));
+      
+      this.navCtrl.navigateRoot('/home');
     },
     error: err => {
       console.error('Login failed:', err.message);
@@ -271,7 +276,7 @@ export class UserLoginPage implements OnInit {
       return;
     }
 
-    this.submitting = true;
+    this.submittingSignup = true;
     const loading = await this.loadingCtrl.create({ message: 'signing up...' });
     await loading.present();
 
